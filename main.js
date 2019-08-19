@@ -6,11 +6,27 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
-    count: 0
+    count: 0,
+    todo: [1,3,5,7,9]
   },
   mutations: {
-    increment: state => state.count++,
-    decrement: state => state.count--
+    increment: (state,payload) => state.count += payload.num,
+    decrement: (state,payload) => {
+      console.log(payload)
+      state.count -= payload.num
+    }
+  },
+  getters: {
+    // 也可以适用第二个参数调用自己对象中的属性
+    islarge: (state,getters) => {
+      return state.count > 5 ? 'yes' : 'no'
+    },
+    // 两个箭头函数相当于扩充了一个外层作用域
+    // 引用getter的值并不是一个执行函数，而是引用他的定义方式(估计是内部先被执行了)
+    // 因此可以下面这样写
+    hasTargetInAll: (state) => (id) => {
+      return state.todo.find(id)
+    }
   }
 })
 
