@@ -11,9 +11,13 @@ const store = new Vuex.Store({
   },
   mutations: {
     increment: (state,payload) => state.count += payload.num,
+    // decrement: (state,payload) => state.count -= payload.num 
+
+    // 异步情况下devtools追踪不到状态，如下
     decrement: (state,payload) => {
-      console.log(payload)
-      state.count -= payload.num
+      setTimeout(() => {
+        state.count -= payload.num        
+      }, 2000);
     }
   },
   getters: {
