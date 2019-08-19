@@ -14,11 +14,8 @@ const store = new Vuex.Store({
     // decrement: (state,payload) => state.count -= payload.num 
 
     // 异步情况下devtools追踪不到状态，如下
-    decrement: (state,payload) => {
-      setTimeout(() => {
-        state.count -= payload.num        
-      }, 2000);
-    }
+    decrement: (state,payload) => state.count -= payload.num,
+    decrementOneCount: (state,payload) => state.count -= payload.count
   },
   getters: {
     // 也可以适用第二个参数调用自己对象中的属性
@@ -30,6 +27,13 @@ const store = new Vuex.Store({
     // 因此可以下面这样写
     hasTargetInAll: (state) => (id) => {
       return state.todo.find(id)
+    }
+  },
+  actions: {
+    decrementAsync({commit},payload) {
+      setTimeout(() => {
+        commit('decrementOneCount',payload)
+      }, 2000);
     }
   }
 })

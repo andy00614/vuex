@@ -4,6 +4,7 @@
     <div>isLarge:{{isLarge}}</div>
     <button @click="increment">+</button>
     <button @click="decrement">-</button>
+    <button @click="decrementAsync($event,2)">-1(async)</button>
   </div>
 </template>
 
@@ -26,6 +27,9 @@ export default {
         type: 'decrement',
         num:3
       })
+    },
+    decrementAsync(e,count=1) {
+      this.$store.dispatch('decrementAsync',{count:count})
     },
     ...mapMutations({
       add: 'increment'
