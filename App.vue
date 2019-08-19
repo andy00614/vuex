@@ -8,14 +8,15 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex'
+import { mapState, mapGetters, mapMutations } from 'vuex'
 export default {
   mounted() {
     console.log(this.$store.getters.islarge)
   },
   methods: {
     increment() {
-      this.$store.commit('increment',{num:3})
+      // this.$store.commit('increment',{num:3})
+      this.add({num:3})
 
     },
     decrement() {
@@ -25,7 +26,10 @@ export default {
         type: 'decrement',
         num:3
       })
-    }
+    },
+    ...mapMutations({
+      add: 'increment'
+    }),
   },
   computed: {
     isLarge() {
